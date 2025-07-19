@@ -75,7 +75,7 @@ export default function TrenuriPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-400">Se încarcă trenurile...</p>
@@ -85,22 +85,22 @@ export default function TrenuriPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4">Căutare Trenuri</h1>
-          <p className="text-gray-400">Găsește trenul perfect pentru călătoria ta</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Căutare Trenuri</h1>
+          <p className="text-gray-400 text-sm sm:text-base">Găsește trenul perfect pentru călătoria ta</p>
         </div>
 
         {/* Search Form */}
-        <div className="glass-card mb-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="glass-card mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Plecare</label>
               <select 
                 value={plecare} 
                 onChange={(e) => setPlecare(e.target.value)}
-                className="input-field w-full"
+                className="input-field w-full text-sm sm:text-base"
               >
                 <option value="">Toate stațiile</option>
                 {statii.map(statia => (
@@ -114,7 +114,7 @@ export default function TrenuriPage() {
               <select 
                 value={destinatie} 
                 onChange={(e) => setDestinatie(e.target.value)}
-                className="input-field w-full"
+                className="input-field w-full text-sm sm:text-base"
               >
                 <option value="">Toate stațiile</option>
                 {statii.map(statia => (
@@ -129,7 +129,7 @@ export default function TrenuriPage() {
                 type="date" 
                 value={data}
                 onChange={(e) => setData(e.target.value)}
-                className="input-field w-full"
+                className="input-field w-full text-sm sm:text-base"
               />
             </div>
 
@@ -138,7 +138,7 @@ export default function TrenuriPage() {
               <select 
                 value={tipTren} 
                 onChange={(e) => setTipTren(e.target.value)}
-                className="input-field w-full"
+                className="input-field w-full text-sm sm:text-base"
               >
                 <option value="">Toate tipurile</option>
                 {tipuriTren.map(tip => (
@@ -155,7 +155,7 @@ export default function TrenuriPage() {
                   setData('');
                   setTipTren('');
                 }}
-                className="btn-secondary w-full"
+                className="btn-secondary w-full text-sm sm:text-base py-2 sm:py-2"
               >
                 Resetează
               </button>
@@ -166,16 +166,16 @@ export default function TrenuriPage() {
         {/* Results */}
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-xl sm:text-2xl font-bold">
               Rezultate ({filteredTrenuri.length})
             </h2>
           </div>
 
           {filteredTrenuri.length === 0 ? (
-            <div className="glass-card text-center py-12">
-              <div className="text-6xl mb-4">🚂</div>
-              <h3 className="text-xl font-bold mb-2">Nu s-au găsit trenuri</h3>
-              <p className="text-gray-400">Încearcă să modifici criteriile de căutare</p>
+            <div className="glass-card text-center py-8 sm:py-12">
+              <div className="text-4xl sm:text-6xl mb-4">🚂</div>
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Nu s-au găsit trenuri</h3>
+              <p className="text-gray-400 text-sm sm:text-base">Încearcă să modifici criteriile de căutare</p>
             </div>
           ) : (
             <div className="grid gap-4">
@@ -183,40 +183,40 @@ export default function TrenuriPage() {
                 <div key={tren.id} className="glass-card hover:scale-[1.02] transition-transform duration-200">
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center space-x-4">
-                          <span className="text-2xl font-bold text-blue-400">{tren.numar}</span>
-                          <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2 sm:gap-0">
+                        <div className="flex items-center space-x-2 sm:space-x-4">
+                          <span className="text-xl sm:text-2xl font-bold text-blue-400">{tren.numar}</span>
+                          <span className="text-xs sm:text-sm bg-blue-600 text-white px-2 sm:px-3 py-1 rounded">
                             {tren.tip}
                           </span>
                         </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-green-400">{tren.pret} RON</div>
-                          <div className="text-sm text-gray-400">{tren.locuriDisponibile} locuri disponibile</div>
+                        <div className="text-left sm:text-right">
+                          <div className="text-lg sm:text-2xl font-bold text-green-400">{tren.pret} RON</div>
+                          <div className="text-xs sm:text-sm text-gray-400">{tren.locuriDisponibile} locuri disponibile</div>
                         </div>
                       </div>
 
-                      <div className="grid md:grid-cols-3 gap-4 mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4">
                         <div>
-                          <div className="text-sm text-gray-400 mb-1">Plecare</div>
-                          <div className="font-medium">{tren.plecare}</div>
-                          <div className="text-sm text-blue-400">{tren.oraPlecare}</div>
+                          <div className="text-xs sm:text-sm text-gray-400 mb-1">Plecare</div>
+                          <div className="font-medium text-sm sm:text-base">{tren.plecare}</div>
+                          <div className="text-xs sm:text-sm text-blue-400">{tren.oraPlecare}</div>
                         </div>
                         
                         <div className="flex items-center justify-center">
                           <div className="flex-1 h-px bg-gray-600"></div>
-                          <div className="mx-4 text-gray-400">{tren.durata}</div>
+                          <div className="mx-2 sm:mx-4 text-xs sm:text-sm text-gray-400">{tren.durata}</div>
                           <div className="flex-1 h-px bg-gray-600"></div>
                         </div>
                         
                         <div>
-                          <div className="text-sm text-gray-400 mb-1">Sosire</div>
-                          <div className="font-medium">{tren.destinatie}</div>
-                          <div className="text-sm text-red-400">{tren.oraSosire}</div>
+                          <div className="text-xs sm:text-sm text-gray-400 mb-1">Sosire</div>
+                          <div className="font-medium text-sm sm:text-base">{tren.destinatie}</div>
+                          <div className="text-xs sm:text-sm text-red-400">{tren.oraSosire}</div>
                         </div>
                       </div>
 
-                      <div className="text-sm text-gray-400">
+                      <div className="text-xs sm:text-sm text-gray-400">
                         Operator: {tren.operator}
                       </div>
                     </div>
@@ -224,7 +224,7 @@ export default function TrenuriPage() {
                     <div className="lg:ml-8 mt-4 lg:mt-0">
                       <Link 
                         href={`/rezervari?tren=${tren.id}`}
-                        className="btn-primary block text-center"
+                        className="btn-primary block text-center text-sm sm:text-base py-2 sm:py-2"
                       >
                         Rezervă
                       </Link>

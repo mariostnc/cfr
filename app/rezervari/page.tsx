@@ -123,17 +123,17 @@ function RezervariContent() {
 
   if (success) {
     return (
-      <div className="min-h-screen py-8 px-4">
+      <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <div className="glass-card text-center">
-            <div className="text-6xl mb-4">✅</div>
-            <h1 className="text-3xl font-bold mb-4">Rezervare Confirmată!</h1>
-            <p className="text-gray-400 mb-6">
+            <div className="text-4xl sm:text-6xl mb-4">✅</div>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-4">Rezervare Confirmată!</h1>
+            <p className="text-gray-400 mb-6 text-sm sm:text-base">
               Rezervarea ta a fost salvată cu succes. Vei primi un email de confirmare în curând.
             </p>
             <button 
               onClick={() => setSuccess(false)}
-              className="btn-primary"
+              className="btn-primary text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
             >
               Fă o altă rezervare
             </button>
@@ -144,25 +144,25 @@ function RezervariContent() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4">Rezervare Tren</h1>
-          <p className="text-gray-400">Completează formularul pentru a-ți rezerva locul</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Rezervare Tren</h1>
+          <p className="text-gray-400 text-sm sm:text-base">Completează formularul pentru a-ți rezerva locul</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Form */}
           <div className="glass-card">
-            <h2 className="text-2xl font-bold mb-6">Detalii Rezervare</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Detalii Rezervare</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Selectează Trenul</label>
                 <select
                   value={form.trenId}
                   onChange={(e) => setForm({...form, trenId: e.target.value})}
-                  className="input-field w-full"
+                  className="input-field w-full text-sm sm:text-base"
                   required
                 >
                   <option value="">Alege un tren</option>
@@ -174,14 +174,14 @@ function RezervariContent() {
                 </select>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Nume</label>
                   <input
                     type="text"
                     value={form.nume}
                     onChange={(e) => setForm({...form, nume: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
@@ -191,20 +191,20 @@ function RezervariContent() {
                     type="text"
                     value={form.prenume}
                     onChange={(e) => setForm({...form, prenume: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Email</label>
                   <input
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({...form, email: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
@@ -214,20 +214,20 @@ function RezervariContent() {
                     type="tel"
                     value={form.telefon}
                     onChange={(e) => setForm({...form, telefon: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Data Călătoriei</label>
                   <input
                     type="date"
                     value={form.dataCalatorie}
                     onChange={(e) => setForm({...form, dataCalatorie: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
@@ -239,7 +239,7 @@ function RezervariContent() {
                     max="10"
                     value={form.numarLocuri}
                     onChange={(e) => setForm({...form, numarLocuri: parseInt(e.target.value)})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
@@ -250,7 +250,7 @@ function RezervariContent() {
                 <select
                   value={form.tipBilet}
                   onChange={(e) => setForm({...form, tipBilet: e.target.value})}
-                  className="input-field w-full"
+                  className="input-field w-full text-sm sm:text-base"
                   required
                 >
                   <option value="adult">Adult</option>
@@ -265,7 +265,7 @@ function RezervariContent() {
                 <textarea
                   value={form.observatii}
                   onChange={(e) => setForm({...form, observatii: e.target.value})}
-                  className="input-field w-full h-24 resize-none"
+                  className="input-field w-full h-20 sm:h-24 resize-none text-sm sm:text-base"
                   placeholder="Observații speciale (opțional)"
                 />
               </div>
@@ -273,7 +273,7 @@ function RezervariContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full py-3 text-lg"
+                className="btn-primary w-full py-2 sm:py-3 text-sm sm:text-lg"
               >
                 {loading ? 'Se salvează...' : 'Confirmă Rezervarea'}
               </button>
@@ -281,38 +281,38 @@ function RezervariContent() {
           </div>
 
           {/* Summary */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {selectedTren && (
               <div className="glass-card">
-                <h2 className="text-2xl font-bold mb-4">Detalii Tren</h2>
-                <div className="space-y-3">
+                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Detalii Tren</h2>
+                <div className="space-y-2 sm:space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Număr:</span>
-                    <span className="font-bold">{selectedTren.numar}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Număr:</span>
+                    <span className="font-bold text-sm sm:text-base">{selectedTren.numar}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Tip:</span>
-                    <span className="font-bold">{selectedTren.tip}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Tip:</span>
+                    <span className="font-bold text-sm sm:text-base">{selectedTren.tip}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Rută:</span>
-                    <span className="font-bold">{selectedTren.plecare} → {selectedTren.destinatie}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Rută:</span>
+                    <span className="font-bold text-sm sm:text-base">{selectedTren.plecare} → {selectedTren.destinatie}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Ora plecare:</span>
-                    <span className="font-bold text-blue-400">{selectedTren.oraPlecare}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Ora plecare:</span>
+                    <span className="font-bold text-blue-400 text-sm sm:text-base">{selectedTren.oraPlecare}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Ora sosire:</span>
-                    <span className="font-bold text-red-400">{selectedTren.oraSosire}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Ora sosire:</span>
+                    <span className="font-bold text-red-400 text-sm sm:text-base">{selectedTren.oraSosire}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Durată:</span>
-                    <span className="font-bold">{selectedTren.durata}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Durată:</span>
+                    <span className="font-bold text-sm sm:text-base">{selectedTren.durata}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Locuri disponibile:</span>
-                    <span className="font-bold">{selectedTren.locuriDisponibile}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Locuri disponibile:</span>
+                    <span className="font-bold text-sm sm:text-base">{selectedTren.locuriDisponibile}</span>
                   </div>
                 </div>
               </div>
@@ -320,22 +320,22 @@ function RezervariContent() {
 
             {selectedTren && (
               <div className="glass-card">
-                <h2 className="text-2xl font-bold mb-4">Cost Total</h2>
-                <div className="space-y-3">
+                <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Cost Total</h2>
+                <div className="space-y-2 sm:space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Preț per bilet:</span>
-                    <span className="font-bold">{selectedTren.pret} RON</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Preț per bilet:</span>
+                    <span className="font-bold text-sm sm:text-base">{selectedTren.pret} RON</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Număr bilete:</span>
-                    <span className="font-bold">{form.numarLocuri}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Număr bilete:</span>
+                    <span className="font-bold text-sm sm:text-base">{form.numarLocuri}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Tip bilet:</span>
-                    <span className="font-bold capitalize">{form.tipBilet}</span>
+                    <span className="text-gray-400 text-sm sm:text-base">Tip bilet:</span>
+                    <span className="font-bold capitalize text-sm sm:text-base">{form.tipBilet}</span>
                   </div>
                   <hr className="border-gray-600" />
-                  <div className="flex justify-between text-lg">
+                  <div className="flex justify-between text-base sm:text-lg">
                     <span className="font-bold">Total:</span>
                     <span className="font-bold text-green-400">{calculatePret().toFixed(2)} RON</span>
                   </div>
@@ -351,15 +351,15 @@ function RezervariContent() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4">Rezervare Tren</h1>
-          <p className="text-gray-400">Se încarcă...</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Rezervare Tren</h1>
+          <p className="text-gray-400 text-sm sm:text-base">Se încarcă...</p>
         </div>
-        <div className="glass-card text-center py-12">
+        <div className="glass-card text-center py-8 sm:py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-400">Se încarcă formularul de rezervare...</p>
+          <p className="text-gray-400 text-sm sm:text-base">Se încarcă formularul de rezervare...</p>
         </div>
       </div>
     </div>

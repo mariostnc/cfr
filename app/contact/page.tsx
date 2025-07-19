@@ -2,15 +2,8 @@
 
 import { useState } from 'react';
 
-interface ContactForm {
-  nume: string;
-  email: string;
-  subiect: string;
-  mesaj: string;
-}
-
 export default function ContactPage() {
-  const [form, setForm] = useState<ContactForm>({
+  const [form, setForm] = useState({
     nume: '',
     email: '',
     subiect: '',
@@ -23,27 +16,27 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
 
-    // Simulează trimiterea mesajului
+    // Simulează trimiterea formularului
     setTimeout(() => {
       setSuccess(true);
-      setForm({ nume: '', email: '', subiect: '', mesaj: '' });
       setLoading(false);
+      setForm({ nume: '', email: '', subiect: '', mesaj: '' });
     }, 2000);
   };
 
   if (success) {
     return (
-      <div className="min-h-screen py-8 px-4">
+      <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <div className="glass-card text-center">
-            <div className="text-6xl mb-4">✅</div>
-            <h1 className="text-3xl font-bold mb-4">Mesaj Trimis!</h1>
-            <p className="text-gray-400 mb-6">
-              Mulțumim pentru mesajul tău! Vei fi contactat în cel mai scurt timp.
+            <div className="text-4xl sm:text-6xl mb-4">✅</div>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-4">Mesaj Trimis!</h1>
+            <p className="text-gray-400 mb-6 text-sm sm:text-base">
+              Mulțumim pentru mesajul tău. Vei primi un răspuns în cel mai scurt timp.
             </p>
             <button 
               onClick={() => setSuccess(false)}
-              className="btn-primary"
+              className="btn-primary text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
             >
               Trimite alt mesaj
             </button>
@@ -54,120 +47,27 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Contact</h1>
-          <p className="text-gray-400">Suntem aici să te ajutăm cu orice întrebări ai avea</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Contact</h1>
+          <p className="text-gray-400 text-sm sm:text-base">Suntem aici să te ajutăm cu orice întrebare ai avea</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="glass-card">
-              <h2 className="text-2xl font-bold mb-6">Informații de Contact</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Telefon</h3>
-                    <p className="text-gray-400">021 319 95 95</p>
-                    <p className="text-gray-400">021 319 95 96</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Email</h3>
-                    <p className="text-gray-400">info@cfr.ro</p>
-                    <p className="text-gray-400">rezervari@cfr.ro</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Adresă</h3>
-                    <p className="text-gray-400">București, Sector 1</p>
-                    <p className="text-gray-400">Strada Gării de Nord, nr. 1</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Program</h3>
-                    <p className="text-gray-400">Luni - Vineri: 08:00 - 20:00</p>
-                    <p className="text-gray-400">Sâmbătă: 09:00 - 17:00</p>
-                    <p className="text-gray-400">Duminică: 10:00 - 16:00</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-card">
-              <h2 className="text-2xl font-bold mb-6">Servicii Suport</h2>
-              
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 neumorphism rounded-lg">
-                  <div>
-                    <h3 className="font-bold">Suport Tehnic</h3>
-                    <p className="text-sm text-gray-400">Pentru probleme cu platforma</p>
-                  </div>
-                  <span className="text-blue-400 font-bold">021 319 95 97</span>
-                </div>
-
-                <div className="flex items-center justify-between p-4 neumorphism rounded-lg">
-                  <div>
-                    <h3 className="font-bold">Rezervări</h3>
-                    <p className="text-sm text-gray-400">Pentru asistență la rezervări</p>
-                  </div>
-                  <span className="text-green-400 font-bold">021 319 95 98</span>
-                </div>
-
-                <div className="flex items-center justify-between p-4 neumorphism rounded-lg">
-                  <div>
-                    <h3 className="font-bold">Reclamatii</h3>
-                    <p className="text-sm text-gray-400">Pentru reclamații și sugestii</p>
-                  </div>
-                  <span className="text-red-400 font-bold">021 319 95 99</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Contact Form */}
           <div className="glass-card">
-            <h2 className="text-2xl font-bold mb-6">Trimite-ne un Mesaj</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Trimite-ne un mesaj</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Nume</label>
                   <input
                     type="text"
                     value={form.nume}
                     onChange={(e) => setForm({...form, nume: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
@@ -177,7 +77,7 @@ export default function ContactPage() {
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({...form, email: e.target.value})}
-                    className="input-field w-full"
+                    className="input-field w-full text-sm sm:text-base"
                     required
                   />
                 </div>
@@ -188,16 +88,16 @@ export default function ContactPage() {
                 <select
                   value={form.subiect}
                   onChange={(e) => setForm({...form, subiect: e.target.value})}
-                  className="input-field w-full"
+                  className="input-field w-full text-sm sm:text-base"
                   required
                 >
                   <option value="">Alege un subiect</option>
                   <option value="rezervari">Rezervări</option>
-                  <option value="tarife">Tarife și Reduceri</option>
-                  <option value="tehnic">Suport Tehnic</option>
+                  <option value="tarife">Tarife și reduceri</option>
+                  <option value="intarzieri">Întârzieri și anulări</option>
                   <option value="reclamatii">Reclamații</option>
                   <option value="sugestii">Sugestii</option>
-                  <option value="alte">Alte</option>
+                  <option value="alte">Alte întrebări</option>
                 </select>
               </div>
 
@@ -206,7 +106,7 @@ export default function ContactPage() {
                 <textarea
                   value={form.mesaj}
                   onChange={(e) => setForm({...form, mesaj: e.target.value})}
-                  className="input-field w-full h-32 resize-none"
+                  className="input-field w-full h-32 sm:h-40 resize-none text-sm sm:text-base"
                   placeholder="Scrie mesajul tău aici..."
                   required
                 />
@@ -215,63 +115,101 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full py-3 text-lg"
+                className="btn-primary w-full py-2 sm:py-3 text-sm sm:text-lg"
               >
-                {loading ? 'Se trimite...' : 'Trimite Mesajul'}
+                {loading ? 'Se trimite...' : 'Trimite Mesaj'}
               </button>
             </form>
           </div>
-        </div>
 
-        {/* FAQ Section */}
-        <div className="mt-16">
-          <div className="glass-card">
-            <h2 className="text-2xl font-bold mb-8 text-center">Întrebări Frecvente</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-bold mb-2">Cum pot face o rezervare?</h3>
-                  <p className="text-gray-400 text-sm">
-                    Poți face o rezervare prin platforma noastră online, prin telefon sau direct la ghișeu.
-                  </p>
+          {/* Contact Info */}
+          <div className="space-y-4 sm:space-y-6">
+            <div className="glass-card">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Informații de Contact</h2>
+              
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex items-start space-x-3 sm:space-x-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-sm sm:text-base">Telefon</h3>
+                    <p className="text-gray-400 text-sm sm:text-base">021 319 99 99</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">Luni - Duminică, 24/7</p>
+                  </div>
                 </div>
-                
-                <div>
-                  <h3 className="font-bold mb-2">Care sunt reducerile disponibile?</h3>
-                  <p className="text-gray-400 text-sm">
-                    Oferim reduceri pentru elevi/studenți (50%), pensionari (25%) și copii (50%).
-                  </p>
+
+                <div className="flex items-start space-x-3 sm:space-x-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-sm sm:text-base">Email</h3>
+                    <p className="text-gray-400 text-sm sm:text-base">info@cfr.ro</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">Răspuns în 24 de ore</p>
+                  </div>
                 </div>
-                
-                <div>
-                  <h3 className="font-bold mb-2">Pot anula o rezervare?</h3>
-                  <p className="text-gray-400 text-sm">
-                    Da, poți anula o rezervare cu cel puțin 24 de ore înainte de plecare.
-                  </p>
+
+                <div className="flex items-start space-x-3 sm:space-x-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-sm sm:text-base">Adresă</h3>
+                    <p className="text-gray-400 text-sm sm:text-base">București Nord</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">Strada Gara de Nord 1-3</p>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <div className="glass-card">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Program de Funcționare</h2>
               
-              <div className="space-y-4">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base">Ghișee</span>
+                  <span className="text-gray-400 text-sm sm:text-base">06:00 - 22:00</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base">Informații telefonice</span>
+                  <span className="text-gray-400 text-sm sm:text-base">24/7</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base">Rezervări online</span>
+                  <span className="text-gray-400 text-sm sm:text-base">24/7</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base">Asistență tehnică</span>
+                  <span className="text-gray-400 text-sm sm:text-base">08:00 - 20:00</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">FAQ Rapid</h2>
+              
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <h3 className="font-bold mb-2">Cum verific starea trenului?</h3>
-                  <p className="text-gray-400 text-sm">
-                    Poți verifica starea trenului în timp real pe pagina &ldquo;Stare Trenuri&rdquo;.
-                  </p>
+                  <h3 className="font-medium text-sm sm:text-base mb-1">Cum pot anula o rezervare?</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm">Poți anula online sau prin telefon cu 2 ore înainte de plecare.</p>
                 </div>
                 
                 <div>
-                  <h3 className="font-bold mb-2">Sunt animalele de companie permise?</h3>
-                  <p className="text-gray-400 text-sm">
-                    Da, animalele de companie sunt permise cu condiția să fie în transportoare.
-                  </p>
+                  <h3 className="font-medium text-sm sm:text-base mb-1">Ce documente sunt necesare?</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm">Buletin de identitate și card de reducere (dacă este cazul).</p>
                 </div>
                 
                 <div>
-                  <h3 className="font-bold mb-2">Există WiFi în trenuri?</h3>
-                  <p className="text-gray-400 text-sm">
-                    WiFi-ul este disponibil în trenurile InterCity și pe unele rute InterRegio.
-                  </p>
+                  <h3 className="font-medium text-sm sm:text-base mb-1">Cum pot obține o reducere?</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm">Elevii, studenții și pensionarii beneficiază de reduceri cu documentele corespunzătoare.</p>
                 </div>
               </div>
             </div>

@@ -2,28 +2,30 @@
 
 import { useState, useEffect } from 'react';
 
-interface Reducere {
-  tip: string;
-  procent: number;
-  pret: number;
-  conditii: string;
-}
-
 interface Tarif {
   id: string;
-  tipTren: string;
-  pretBase: number;
-  reduceri: Reducere[];
+  tip: string;
+  descriere: string;
+  pret: number;
+  reducere: number;
+  conditii: string[];
+  valabilitate: string;
+  categorie: 'adult' | 'elev' | 'pensionar' | 'copil' | 'special';
 }
 
 export default function TarifePage() {
   const [tarife, setTarife] = useState<Tarif[]>([]);
+  const [filteredTarife, setFilteredTarife] = useState<Tarif[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTip, setSelectedTip] = useState('');
+  const [filter, setFilter] = useState('toate');
 
   useEffect(() => {
     fetchTarife();
   }, []);
+
+  useEffect(() => {
+    filterTarife();
+  }, [tarife, filter]);
 
   const fetchTarife = async () => {
     try {
@@ -37,158 +39,216 @@ export default function TarifePage() {
     }
   };
 
-  const filteredTarife = selectedTip 
-    ? tarife.filter(tarif => tarif.tipTren === selectedTip)
-    : tarife;
+  const filterTarife = () => {
+    let filtered = [...tarife];
+    
+    if (filter !== 'toate') {
+      filtered = filtered.filter(tarif => tarif.categorie === filter);
+    }
+    
+    setFilteredTarife(filtered);
+  };
 
-  const tipuriTren = ['InterRegio', 'Rapid', 'InterCity', 'Personal'];
+  const getCategoryColor = (categorie: string) => {
+    switch (categorie) {
+      case 'adult':
+        return 'bg-blue-600';
+      case 'elev':
+        return 'bg-green-600';
+      case 'pensionar':
+        return 'bg-purple-600';
+      case 'copil':
+        return 'bg-yellow-600';
+      case 'special':
+        return 'bg-red-600';
+      default:
+        return 'bg-gray-600';
+    }
+  };
+
+  const getCategoryText = (categorie: string) => {
+    switch (categorie) {
+      case 'adult':
+        return 'Adult';
+      case 'elev':
+        return 'Elev/Student';
+      case 'pensionar':
+        return 'Pensionar';
+      case 'copil':
+        return 'Copil';
+      case 'special':
+        return 'Special';
+      default:
+        return 'Necunoscut';
+    }
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-400">Se încarcă tarifele...</p>
+          <p className="text-gray-400 text-sm sm:text-base">Se încarcă tarifele...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4">Tarife și Reduceri</h1>
-          <p className="text-gray-400">Vezi toate tarifele și reducerile disponibile pentru călătoriile cu CFR</p>
+    <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Tarife și Reduceri</h1>
+          <p className="text-gray-400 text-sm sm:text-base">Descoperă tarifele și reducerile disponibile</p>
         </div>
 
-        {/* Filter */}
-        <div className="glass-card mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            <div className="flex-1">
-              <select
-                value={selectedTip}
-                onChange={(e) => setSelectedTip(e.target.value)}
-                className="input-field w-full"
-              >
-                <option value="">Toate tipurile de tren</option>
-                {tipuriTren.map(tip => (
-                  <option key={tip} value={tip}>{tip}</option>
-                ))}
-              </select>
-            </div>
+        {/* Filter Controls */}
+        <div className="glass-card mb-6 sm:mb-8">
+          <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
             <button
-              onClick={() => setSelectedTip('')}
-              className="btn-secondary px-6"
+              onClick={() => setFilter('toate')}
+              className={`px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-medium transition-colors ${
+                filter === 'toate'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
             >
-              Resetează
+              Toate ({tarife.length})
+            </button>
+            <button
+              onClick={() => setFilter('adult')}
+              className={`px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-medium transition-colors ${
+                filter === 'adult'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Adult ({tarife.filter(t => t.categorie === 'adult').length})
+            </button>
+            <button
+              onClick={() => setFilter('elev')}
+              className={`px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-medium transition-colors ${
+                filter === 'elev'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Elev ({tarife.filter(t => t.categorie === 'elev').length})
+            </button>
+            <button
+              onClick={() => setFilter('pensionar')}
+              className={`px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-medium transition-colors ${
+                filter === 'pensionar'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Pensionar ({tarife.filter(t => t.categorie === 'pensionar').length})
+            </button>
+            <button
+              onClick={() => setFilter('copil')}
+              className={`px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-medium transition-colors ${
+                filter === 'copil'
+                  ? 'bg-yellow-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Copil ({tarife.filter(t => t.categorie === 'copil').length})
             </button>
           </div>
         </div>
 
-        {/* Tarife Grid */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {filteredTarife.map((tarif) => (
-            <div key={tarif.id} className="glass-card">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold mb-2">{tarif.tipTren}</h2>
-                <div className="text-4xl font-bold text-green-400 mb-2">
-                  {tarif.pretBase} RON
-                </div>
-                <div className="text-gray-400">Preț de bază</div>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-bold mb-4">Reduceri Disponibile</h3>
-                
-                {tarif.reduceri.map((reducere, index) => (
-                  <div key={index} className="neumorphism p-4 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                          <span className="text-white text-sm font-bold">
-                            {reducere.procent}%
-                          </span>
-                        </div>
-                        <span className="font-medium">{reducere.tip}</span>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-green-400">
-                          {reducere.pret} RON
-                        </div>
-                        <div className="text-sm text-gray-400">
-                          Reducere {reducere.procent}%
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="text-sm text-gray-400">
-                      {reducere.conditii}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-gray-600">
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <div className="text-gray-400">Preț minim</div>
-                    <div className="font-bold text-green-400">
-                      {Math.min(...tarif.reduceri.map(r => r.pret))} RON
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">Reducere maximă</div>
-                    <div className="font-bold text-blue-400">
-                      {Math.max(...tarif.reduceri.map(r => r.procent))}%
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* Results */}
+        <div className="space-y-4">
+          {filteredTarife.length === 0 ? (
+            <div className="glass-card text-center py-8 sm:py-12">
+              <div className="text-4xl sm:text-6xl mb-4">💰</div>
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Nu s-au găsit tarife</h3>
+              <p className="text-gray-400 text-sm sm:text-base">Încearcă să modifici filtrele</p>
             </div>
-          ))}
+          ) : (
+            <div className="grid gap-4">
+              {filteredTarife.map((tarif) => (
+                <div key={tarif.id} className="glass-card hover:scale-[1.02] transition-transform duration-200">
+                  <div className="flex flex-col lg:flex-row lg:items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2 sm:gap-0">
+                        <div className="flex items-center space-x-2 sm:space-x-4">
+                          <span className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded text-white font-medium ${getCategoryColor(tarif.categorie)}`}>
+                            {getCategoryText(tarif.categorie)}
+                          </span>
+                          <span className="text-lg sm:text-xl font-bold">{tarif.tip}</span>
+                        </div>
+                        <div className="text-left sm:text-right">
+                          <div className="text-lg sm:text-2xl font-bold text-green-400">{tarif.pret} RON</div>
+                          {tarif.reducere > 0 && (
+                            <div className="text-xs sm:text-sm text-yellow-400">
+                              Reducere {tarif.reducere}%
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <p className="text-sm sm:text-base text-gray-300 mb-4">{tarif.descriere}</p>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div>
+                          <h4 className="text-sm sm:text-base font-medium mb-2">Condiții:</h4>
+                          <ul className="space-y-1">
+                            {tarif.conditii.map((conditie, index) => (
+                              <li key={index} className="text-xs sm:text-sm text-gray-400 flex items-start">
+                                <span className="text-blue-400 mr-2 mt-1">•</span>
+                                {conditie}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        <div>
+                          <h4 className="text-sm sm:text-base font-medium mb-2">Valabilitate:</h4>
+                          <p className="text-xs sm:text-sm text-gray-400">{tarif.valabilitate}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Info Section */}
-        <div className="mt-12">
+        {/* Additional Info */}
+        <div className="mt-6 sm:mt-8">
           <div className="glass-card">
-            <h2 className="text-2xl font-bold mb-6">Informații Importante</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-lg font-bold mb-4">Condiții pentru Reduceri</h3>
-                <ul className="space-y-2 text-sm text-gray-400">
-                  <li>• Elevii și studenții trebuie să prezinte carnetul de elev/student valid</li>
-                  <li>• Pensionarii trebuie să prezinte carnetul de pensionar valid</li>
-                  <li>• Reducerea pentru copii se aplică pentru copii între 5-14 ani</li>
-                  <li>• Copiii sub 5 ani călătoresc gratuit (fără loc rezervat)</li>
-                  <li>• Reducerile nu se pot combina</li>
+            <h3 className="text-lg sm:text-xl font-bold mb-4">Informații Importante</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm sm:text-base">
+              <div className="space-y-2">
+                <h4 className="font-medium text-blue-400">Documente Necesare</h4>
+                <ul className="text-gray-400 space-y-1">
+                  <li>• Buletin de identitate</li>
+                  <li>• Card de student (pentru reduceri)</li>
+                  <li>• Certificat medical (dacă este cazul)</li>
                 </ul>
               </div>
               
-              <div>
-                <h3 className="text-lg font-bold mb-4">Tipuri de Trenuri</h3>
-                <ul className="space-y-2 text-sm text-gray-400">
-                  <li>• <strong>InterRegio:</strong> Trenuri rapide între orașe mari</li>
-                  <li>• <strong>Rapid:</strong> Trenuri cu oprire în stații intermediare</li>
-                  <li>• <strong>InterCity:</strong> Trenuri de lux cu servicii premium</li>
-                  <li>• <strong>Personal:</strong> Trenuri locale cu oprire în toate stațiile</li>
+              <div className="space-y-2">
+                <h4 className="font-medium text-green-400">Rezervări</h4>
+                <ul className="text-gray-400 space-y-1">
+                  <li>• Rezervările se fac cu 24h înainte</li>
+                  <li>• Plata se face la bord sau online</li>
+                  <li>• Anulări gratuite cu 2h înainte</li>
+                </ul>
+              </div>
+              
+              <div className="space-y-2">
+                <h4 className="font-medium text-purple-400">Contact</h4>
+                <ul className="text-gray-400 space-y-1">
+                  <li>• Tel: 021 319 99 99</li>
+                  <li>• Email: info@cfr.ro</li>
+                  <li>• Program: 24/7</li>
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Contact Info */}
-        <div className="mt-8">
-          <div className="glass-card text-center">
-            <h3 className="text-lg font-bold mb-2">Ai întrebări despre tarife?</h3>
-            <p className="text-gray-400 mb-4">
-              Contactează-ne pentru informații suplimentare despre tarife și reduceri
-            </p>
-            <a href="/contact" className="btn-primary">
-              Contactează-ne
-            </a>
           </div>
         </div>
       </div>
