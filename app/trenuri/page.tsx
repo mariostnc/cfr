@@ -36,7 +36,6 @@ export default function TrenuriPage() {
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<'pret' | 'durata' | 'oraPlecare'>('oraPlecare');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [selectedTren, setSelectedTren] = useState<Tren | null>(null);
   
   // Filter states
   const [filters, setFilters] = useState<FilterState>({
@@ -97,7 +96,8 @@ export default function TrenuriPage() {
 
     // Apply sorting
     filtered.sort((a, b) => {
-      let aValue: any, bValue: any;
+      let aValue: number | string;
+      let bValue: number | string;
       
       switch (sortBy) {
         case 'pret':
@@ -358,7 +358,7 @@ export default function TrenuriPage() {
             <div className="flex items-center space-x-2">
               <select 
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'pret' | 'durata' | 'oraPlecare')}
                 className="input-field text-sm"
               >
                 <option value="oraPlecare">Ora plecării</option>
