@@ -35,7 +35,6 @@ function RezervariContent() {
   const [trenuriLoading, setTrenuriLoading] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
-  const [showSummary, setShowSummary] = useState(false);
   
   const [form, setForm] = useState<RezervareForm>({
     trenId: trenIdFromUrl || '',
