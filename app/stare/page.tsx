@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface StareTren {
   id: string;
@@ -20,29 +20,13 @@ export default function StarePage() {
   const [stareTrenuri, setStareTrenuri] = useState<StareTren[]>([]);
   const [filteredTrenuri, setFilteredTrenuri] = useState<StareTren[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('toate');
+  const [filter, setFilter] = useState<'toate' | 'la_timp' | 'intarziat' | 'anulat'>('toate');
 
   useEffect(() => {
     fetchStareTrenuri();
   }, []);
 
-  useEffect(() => {
-    filterTrenuri();
-  }, [stareTrenuri, filter]);
-
-  const fetchStareTrenuri = async () => {
-    try {
-      const response = await fetch('/api/status');
-      const data = await response.json();
-      setStareTrenuri(data);
-    } catch (error) {
-      console.error('Error fetching status:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterTrenuri = () => {
+  const filterTrenuri = useCallback(() => {
     let filtered = [...stareTrenuri];
     
     if (filter === 'intarziat') {
@@ -54,6 +38,22 @@ export default function StarePage() {
     }
     
     setFilteredTrenuri(filtered);
+  }, [stareTrenuri, filter]);
+
+  useEffect(() => {
+    filterTrenuri();
+  }, [filterTrenuri]);
+
+  const fetchStareTrenuri = async () => {
+    try {
+      const response = await fetch('/api/status');
+      const data = await response.json();
+      setStareTrenuri(data);
+    } catch (error) {
+      console.error('Error fetching status:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getStatusColor = (status: string) => {

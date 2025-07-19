@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface Tarif {
   id: string;
@@ -23,9 +23,19 @@ export default function TarifePage() {
     fetchTarife();
   }, []);
 
+  const filterTarife = useCallback(() => {
+    let filtered = [...tarife];
+    
+    if (filter !== 'toate') {
+      filtered = filtered.filter(tarif => tarif.categorie === filter);
+    }
+    
+    setFilteredTarife(filtered);
+  }, [tarife, filter]);
+
   useEffect(() => {
     filterTarife();
-  }, [tarife, filter]);
+  }, [filterTarife]);
 
   const fetchTarife = async () => {
     try {
@@ -37,16 +47,6 @@ export default function TarifePage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const filterTarife = () => {
-    let filtered = [...tarife];
-    
-    if (filter !== 'toate') {
-      filtered = filtered.filter(tarif => tarif.categorie === filter);
-    }
-    
-    setFilteredTarife(filtered);
   };
 
   const getCategoryColor = (categorie: string) => {
@@ -203,7 +203,6 @@ export default function TarifePage() {
                             ))}
                           </ul>
                         </div>
-                        
                         <div>
                           <h4 className="text-sm sm:text-base font-medium mb-2">Valabilitate:</h4>
                           <p className="text-xs sm:text-sm text-gray-400">{tarif.valabilitate}</p>
