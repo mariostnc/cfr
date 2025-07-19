@@ -80,13 +80,24 @@ export async function getRezervari() {
 }
 
 export async function addRezervare(rezervare: Rezervare): Promise<Rezervare> {
-  const rezervari = await getRezervari();
-  const newRezervare: Rezervare = {
-    ...rezervare,
-    id: Date.now().toString(),
-    dataCreare: new Date().toISOString(),
-  };
-  rezervari.push(newRezervare);
-  await writeJsonFile('rezervari.json', rezervari);
-  return newRezervare;
+  try {
+    // Validare de bază
+    if (!rezervare.trenId || !rezervare.nume || !rezervare.prenume || !rezervare.email) {
+      throw new Error('Lipsesc câmpurile obligatorii');
+    }
+
+    const rezervari = await getRezervari();
+    const newRezervare: Rezervare = {
+      ...rezervare,
+      id: Date.now().toString(),
+      dataCreare: new Date().toISOString(),
+    };
+    
+    rezervari.push(newRezervare);
+    await writeJsonFile('rezervari.json', rezervari);
+    return newRezervare;
+  } catch (error) {
+    console.error('Error in addRezervare:', error);
+    throw error;
+  }
 } 

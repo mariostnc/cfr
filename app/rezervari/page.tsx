@@ -28,6 +28,7 @@ function RezervariContent() {
   const [selectedTren, setSelectedTren] = useState<Tren | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [trenuriLoading, setTrenuriLoading] = useState(true);
   
   const [form, setForm] = useState<RezervareForm>({
     trenId: trenIdFromUrl || '',
@@ -54,11 +55,18 @@ function RezervariContent() {
 
   const fetchTrenuri = async () => {
     try {
+      setTrenuriLoading(true);
       const response = await fetch('/api/trenuri');
+      if (!response.ok) {
+        throw new Error('Failed to fetch trenuri');
+      }
       const data = await response.json();
-      setTrenuri(data);
+      setTrenuri(data || []);
     } catch (error) {
       console.error('Error fetching trenuri:', error);
+      setTrenuri([]);
+    } finally {
+      setTrenuriLoading(false);
     }
   };
 
@@ -94,6 +102,8 @@ function RezervariContent() {
         });
         setSelectedTren(null);
       } else {
+        const errorData = await response.json();
+        console.error('Server error:', errorData);
         alert('Eroare la salvarea rezervării');
       }
     } catch (error) {
@@ -164,13 +174,22 @@ function RezervariContent() {
                   onChange={(e) => setForm({...form, trenId: e.target.value})}
                   className="input-field w-full text-sm sm:text-base"
                   required
+                  disabled={trenuriLoading}
                 >
-                  <option value="">Alege un tren</option>
-                  {trenuri.map(tren => (
-                    <option key={tren.id} value={tren.id}>
-                      {tren.numar} - {tren.plecare} → {tren.destinatie} ({tren.oraPlecare})
+                  <option value="">
+                    {trenuriLoading ? 'Se încarcă trenurile...' : 'Alege un tren'}
+                  </option>
+                  {trenuri && trenuri.length > 0 ? (
+                    trenuri.map(tren => (
+                      <option key={tren.id} value={tren.id}>
+                        {tren.numar} - {tren.plecare} → {tren.destinatie} ({tren.oraPlecare})
+                      </option>
+                    ))
+                  ) : (
+                    <option value="" disabled>
+                      {trenuriLoading ? 'Se încarcă...' : 'Nu sunt trenuri disponibile'}
                     </option>
-                  ))}
+                  )}
                 </select>
               </div>
 
@@ -272,8 +291,8 @@ function RezervariContent() {
 
               <button
                 type="submit"
-                disabled={loading}
-                className="btn-primary w-full py-2 sm:py-3 text-sm sm:text-lg"
+                disabled={loading || trenuriLoading}
+                className="btn-primary w-full py-2 sm:py-3 text-sm sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Se salvează...' : 'Confirmă Rezervarea'}
               </button>

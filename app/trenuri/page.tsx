@@ -21,6 +21,7 @@ export default function TrenuriPage() {
   const [trenuri, setTrenuri] = useState<Tren[]>([]);
   const [filteredTrenuri, setFilteredTrenuri] = useState<Tren[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Filter states
   const [plecare, setPlecare] = useState('');
@@ -29,6 +30,11 @@ export default function TrenuriPage() {
   const [tipTren, setTipTren] = useState('');
 
   const filterTrenuri = useCallback(() => {
+    if (!trenuri || trenuri.length === 0) {
+      setFilteredTrenuri([]);
+      return;
+    }
+
     let filtered = [...trenuri];
 
     if (plecare) {
@@ -52,11 +58,20 @@ export default function TrenuriPage() {
 
   const fetchTrenuri = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const response = await fetch('/api/trenuri');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch trenuri');
+      }
+      
       const data = await response.json();
-      setTrenuri(data);
+      setTrenuri(data || []);
     } catch (error) {
       console.error('Error fetching trenuri:', error);
+      setError('Eroare la încărcarea trenurilor');
+      setTrenuri([]);
     } finally {
       setLoading(false);
     }
@@ -78,7 +93,32 @@ export default function TrenuriPage() {
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-400">Se încarcă trenurile...</p>
+          <p className="text-gray-400 text-sm sm:text-base">Se încarcă trenurile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Căutare Trenuri</h1>
+            <p className="text-gray-400 text-sm sm:text-base">Găsește trenul perfect pentru călătoria ta</p>
+          </div>
+          
+          <div className="glass-card text-center py-8 sm:py-12">
+            <div className="text-4xl sm:text-6xl mb-4">⚠️</div>
+            <h3 className="text-lg sm:text-xl font-bold mb-2">Eroare la încărcare</h3>
+            <p className="text-gray-400 text-sm sm:text-base mb-4">{error}</p>
+            <button 
+              onClick={fetchTrenuri}
+              className="btn-primary text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
+            >
+              Încearcă din nou
+            </button>
+          </div>
         </div>
       </div>
     );
