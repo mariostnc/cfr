@@ -1,176 +1,281 @@
-import Link from 'next/link';
-import { getTrenuri } from '@/lib/db';
+'use client';
 
-interface Tren {
-  id: string;
-  numar: string;
-  tip: string;
-  plecare: string;
-  destinatie: string;
-  oraPlecare: string;
-  oraSosire: string;
-  durata: string;
-  pret: number;
-  locuriDisponibile: number;
-  operator: string;
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+interface Statistic {
+  icon: string;
+  value: string;
+  label: string;
+  color: string;
 }
 
-export default async function Home() {
-  const trenuri = await getTrenuri() as Tren[];
-  const trenuriPopulare = trenuri.slice(0, 4);
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+  gradient: string;
+}
+
+export default function HomePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const statistics: Statistic[] = [
+    { icon: '🚂', value: '500+', label: 'Trenuri Zilnic', color: 'from-blue-500 to-cyan-500' },
+    { icon: '👥', value: '50K+', label: 'Pasageri Zilnic', color: 'from-purple-500 to-pink-500' },
+    { icon: '📍', value: '200+', label: 'Stații', color: 'from-green-500 to-emerald-500' },
+    { icon: '⭐', value: '98%', label: 'Satisfacție', color: 'from-yellow-500 to-orange-500' }
+  ];
+
+  const features: Feature[] = [
+    {
+      icon: '🔍',
+      title: 'Căutare Avansată',
+      description: 'Găsește rapid trenul perfect cu filtre inteligente și recomandări personalizate.',
+      gradient: 'from-blue-600 to-purple-600'
+    },
+    {
+      icon: '🎫',
+      title: 'Rezervări Instant',
+      description: 'Rezervă-ți locul în câteva clicuri cu confirmare imediată și notificări în timp real.',
+      gradient: 'from-green-600 to-emerald-600'
+    },
+    {
+      icon: '📊',
+      title: 'Status în Timp Real',
+      description: 'Urmărește trenul tău în timp real cu actualizări live și notificări de întârziere.',
+      gradient: 'from-purple-600 to-pink-600'
+    },
+    {
+      icon: '💰',
+      title: 'Tarife Transparente',
+      description: 'Vezi toate costurile clar, cu reduceri și promoții speciale pentru diferite categorii.',
+      gradient: 'from-yellow-600 to-orange-600'
+    }
+  ];
+
+  const heroSlides = [
+    {
+      title: 'Călătorii Moderne',
+      subtitle: 'Descoperă România cu CFR Digital',
+      description: 'Rezervări rapide, status în timp real și experiență de călătorie fără precedent.',
+      image: '🚂',
+      gradient: 'from-blue-600 via-purple-600 to-pink-600'
+    },
+    {
+      title: 'Conectivitate Totală',
+      subtitle: 'Reteaua CFR la un click distanță',
+      description: 'Acces la toate informațiile despre trenuri, stații și servicii CFR.',
+      image: '🌐',
+      gradient: 'from-green-600 via-emerald-600 to-cyan-600'
+    },
+    {
+      title: 'Experiență Premium',
+      subtitle: 'Servicii de calitate superioară',
+      description: 'Comoditate, siguranță și eficiență în fiecare călătorie cu CFR.',
+      image: '⭐',
+      gradient: 'from-purple-600 via-pink-600 to-red-600'
+    }
+  ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900"></div>
-        <div className="absolute inset-0 bg-black/40"></div>
-        
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-24 h-24 sm:w-32 sm:h-32 bg-blue-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-32 h-32 sm:w-40 sm:h-40 bg-purple-400 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6">
-            CFR România
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
-            Călătorii confortabile și sigure prin România. Găsește trenul perfect pentru călătoria ta.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-            <Link href="/trenuri" className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3">
-              Caută Trenuri
-            </Link>
-            <Link href="/rezervari" className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3">
-              Rezervări
-            </Link>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute top-40 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
           </div>
         </div>
-      </section>
 
-      {/* Quick Search Section */}
-      <section className="py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="glass-card">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Căutare Rapidă</h2>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              <div className="space-y-2 sm:space-y-4">
-                <label className="block text-sm font-medium">Plecare</label>
-                <select className="input-field w-full text-sm sm:text-base">
-                  <option value="">Selectează stația</option>
-                  <option value="București Nord">București Nord</option>
-                  <option value="Cluj Napoca">Cluj Napoca</option>
-                  <option value="Timișoara Nord">Timișoara Nord</option>
-                  <option value="Constanța">Constanța</option>
-                  <option value="Brașov">Brașov</option>
-                </select>
-              </div>
-              
-              <div className="space-y-2 sm:space-y-4">
-                <label className="block text-sm font-medium">Destinație</label>
-                <select className="input-field w-full text-sm sm:text-base">
-                  <option value="">Selectează stația</option>
-                  <option value="București Nord">București Nord</option>
-                  <option value="Cluj Napoca">Cluj Napoca</option>
-                  <option value="Timișoara Nord">Timișoara Nord</option>
-                  <option value="Constanța">Constanța</option>
-                  <option value="Brașov">Brașov</option>
-                </select>
-              </div>
-              
-              <div className="space-y-2 sm:space-y-4 sm:col-span-2 lg:col-span-1">
-                <label className="block text-sm font-medium">Data</label>
-                <input 
-                  type="date" 
-                  className="input-field w-full text-sm sm:text-base"
-                  defaultValue={new Date().toISOString().split('T')[0]}
-                />
-              </div>
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            {/* Slider */}
+            <div className="relative h-96 flex items-center justify-center mb-12">
+              {heroSlides.map((slide, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ${
+                    currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
+                >
+                  <div className={`text-8xl sm:text-9xl mb-6 animate-bounce`}>
+                    {slide.image}
+                  </div>
+                  <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-4 text-gradient">
+                    {slide.title}
+                  </h1>
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 text-white/90">
+                    {slide.subtitle}
+                  </h2>
+                  <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto">
+                    {slide.description}
+                  </p>
+                </div>
+              ))}
             </div>
-            
-            <div className="text-center mt-6 sm:mt-8">
-              <Link href="/trenuri" className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3">
-                Caută Trenuri
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <Link href="/trenuri" className="btn-primary text-lg px-8 py-4 group">
+                <span className="flex items-center space-x-2">
+                  <span>🔍</span>
+                  <span>Caută Trenuri</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </span>
+              </Link>
+              <Link href="/rezervari" className="btn-secondary text-lg px-8 py-4 group">
+                <span className="flex items-center space-x-2">
+                  <span>🎫</span>
+                  <span>Fă o Rezervare</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </span>
               </Link>
             </div>
+
+            {/* Statistics */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {statistics.map((stat, index) => (
+                <div
+                  key={index}
+                  className={`glass-card text-center p-6 hover-lift animate-fade-in-up`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`text-4xl mb-3 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                    {stat.icon}
+                  </div>
+                  <div className={`text-2xl font-bold mb-1 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-white/70">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
 
-      {/* Popular Routes */}
-      <section className="py-8 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gray-800/50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Rute Populare</h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {trenuriPopulare.map((tren) => (
-              <div key={tren.id} className="glass-card hover:scale-105 transition-transform duration-200">
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <span className="text-xl sm:text-2xl font-bold text-blue-400">{tren.numar}</span>
-                  <span className="text-xs sm:text-sm bg-blue-600 text-white px-2 sm:px-3 py-1 rounded">
-                    {tren.tip}
-                  </span>
+      {/* Features Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
+              De ce CFR Digital?
+            </h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto">
+              Descoperă avantajele călătoriei moderne cu CFR - tehnologie de ultimă generație pentru o experiență de neuitat.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="glass-card p-6 text-center hover-lift animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center text-2xl shadow-glow`}>
+                  {feature.icon}
                 </div>
-                
-                <div className="space-y-2 mb-3 sm:mb-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span className="text-xs sm:text-sm truncate">{tren.plecare}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                    <span className="text-xs sm:text-sm truncate">{tren.destinatie}</span>
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-base sm:text-lg font-bold">{tren.pret} RON</span>
-                  <span className="text-xs sm:text-sm text-gray-400">{tren.durata}</span>
-                </div>
+                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                <p className="text-white/70 text-sm leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">De ce să călătorești cu CFR?</h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+      {/* Quick Actions Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gradient">
+              Servicii Rapide
+            </h2>
+            <p className="text-xl text-white/70">
+              Accesează rapid serviciile CFR cu doar câteva clicuri
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Link href="/trenuri" className="group">
+              <div className="glass-card p-8 text-center hover-lift animate-fade-in-left">
+                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">🔍</div>
+                <h3 className="text-2xl font-bold mb-3">Căutare Trenuri</h3>
+                <p className="text-white/70 mb-4">Găsește rapid trenul perfect pentru călătoria ta</p>
+                <div className="text-blue-400 group-hover:translate-x-2 transition-transform duration-300">
+                  Caută acum →
+                </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold mb-2">Rapid și Sigur</h3>
-              <p className="text-sm sm:text-base text-gray-400">Călătorii rapide și sigure prin întreaga Românie</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                </svg>
+            </Link>
+
+            <Link href="/rezervari" className="group">
+              <div className="glass-card p-8 text-center hover-lift animate-fade-in-up">
+                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">🎫</div>
+                <h3 className="text-2xl font-bold mb-3">Rezervări</h3>
+                <p className="text-white/70 mb-4">Rezervă-ți locul în câteva clicuri</p>
+                <div className="text-blue-400 group-hover:translate-x-2 transition-transform duration-300">
+                  Rezervă acum →
+                </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold mb-2">Prețuri Competitive</h3>
-              <p className="text-sm sm:text-base text-gray-400">Tarife accesibile și reduceri pentru toate categoriile</p>
-            </div>
-            
-            <div className="text-center sm:col-span-2 lg:col-span-1">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            </Link>
+
+            <Link href="/stare" className="group">
+              <div className="glass-card p-8 text-center hover-lift animate-fade-in-right">
+                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">📊</div>
+                <h3 className="text-2xl font-bold mb-3">Status Trenuri</h3>
+                <p className="text-white/70 mb-4">Verifică statusul trenului în timp real</p>
+                <div className="text-blue-400 group-hover:translate-x-2 transition-transform duration-300">
+                  Verifică acum →
+                </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold mb-2">Rezervări Ușoare</h3>
-              <p className="text-sm sm:text-base text-gray-400">Rezervări rapide și simple prin platforma noastră</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="glass-card p-12 animate-scale-in">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
+              Rămâi Conectat
+            </h2>
+            <p className="text-xl text-white/70 mb-8">
+              Primește notificări despre promoții, întârzieri și noutăți CFR
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Adresa ta de email"
+                className="input-field flex-1"
+              />
+              <button className="btn-primary whitespace-nowrap">
+                Abonează-te
+              </button>
             </div>
           </div>
         </div>
