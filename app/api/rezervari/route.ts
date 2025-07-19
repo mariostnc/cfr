@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addRezervare } from '@/lib/db';
+import { addRezervare, type Rezervare } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json() as Rezervare;
     const rezervare = await addRezervare(body);
     
     return NextResponse.json(rezervare, { status: 201 });

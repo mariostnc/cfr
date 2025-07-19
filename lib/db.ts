@@ -20,7 +20,7 @@ export async function readJsonFile<T>(filename: string): Promise<T[]> {
   try {
     const data = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(data);
-  } catch (error) {
+  } catch {
     // If file doesn't exist, return empty array
     return [];
   }
@@ -31,6 +31,35 @@ export async function writeJsonFile<T>(filename: string, data: T[]): Promise<voi
   await ensureDataDir();
   const filePath = path.join(dataDir, filename);
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+}
+
+// Define types for better type safety
+export interface Rezervare {
+  trenId: string;
+  nume: string;
+  prenume: string;
+  email: string;
+  telefon: string;
+  dataCalatorie: string;
+  numarLocuri: number;
+  tipBilet: string;
+  observatii: string;
+  trenInfo?: {
+    id: string;
+    numar: string;
+    tip: string;
+    plecare: string;
+    destinatie: string;
+    oraPlecare: string;
+    oraSosire: string;
+    durata: string;
+    pret: number;
+    locuriDisponibile: number;
+    operator: string;
+  };
+  pretTotal?: number;
+  id?: string;
+  dataCreare?: string;
 }
 
 // Specific functions for each data type
@@ -47,12 +76,12 @@ export async function getTarife() {
 }
 
 export async function getRezervari() {
-  return readJsonFile('rezervari.json');
+  return readJsonFile<Rezervare>('rezervari.json');
 }
 
-export async function addRezervare(rezervare: any) {
+export async function addRezervare(rezervare: Rezervare): Promise<Rezervare> {
   const rezervari = await getRezervari();
-  const newRezervare = {
+  const newRezervare: Rezervare = {
     ...rezervare,
     id: Date.now().toString(),
     dataCreare: new Date().toISOString(),

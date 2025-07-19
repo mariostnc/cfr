@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import type { Rezervare } from '@/lib/db';
 
 interface Tren {
   id: string;
@@ -17,17 +18,7 @@ interface Tren {
   operator: string;
 }
 
-interface RezervareForm {
-  trenId: string;
-  nume: string;
-  prenume: string;
-  email: string;
-  telefon: string;
-  dataCalatorie: string;
-  numarLocuri: number;
-  tipBilet: string;
-  observatii: string;
-}
+type RezervareForm = Omit<Rezervare, 'id' | 'dataCreare' | 'trenInfo' | 'pretTotal'>;
 
 export default function RezervariPage() {
   const searchParams = useSearchParams();
