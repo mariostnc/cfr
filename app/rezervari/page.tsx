@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import type { Rezervare } from '@/lib/db';
 
@@ -20,7 +20,7 @@ interface Tren {
 
 type RezervareForm = Omit<Rezervare, 'id' | 'dataCreare' | 'trenInfo' | 'pretTotal'>;
 
-export default function RezervariPage() {
+function RezervariContent() {
   const searchParams = useSearchParams();
   const trenIdFromUrl = searchParams.get('tren');
   
@@ -346,5 +346,30 @@ export default function RezervariPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen py-8 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-4">Rezervare Tren</h1>
+          <p className="text-gray-400">Se încarcă...</p>
+        </div>
+        <div className="glass-card text-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-400">Se încarcă formularul de rezervare...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function RezervariPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <RezervariContent />
+    </Suspense>
   );
 } 
