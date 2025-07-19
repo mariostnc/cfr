@@ -1,0 +1,90 @@
+[
+  {
+    "id": "1",
+    "numar": "IR 1001",
+    "status": "În mișcare",
+    "progres": 75,
+    "intarziere": 0,
+    "ultimaActualizare": "2024-01-15T10:30:00Z",
+    "statieCurenta": "Sibiu",
+    "urmatoareaStatie": "Alba Iulia",
+    "oraEstimataSosire": "12:30"
+  },
+  {
+    "id": "2",
+    "numar": "IR 1002",
+    "status": "În mișcare",
+    "progres": 45,
+    "intarziere": 15,
+    "ultimaActualizare": "2024-01-15T09:45:00Z",
+    "statieCurenta": "Dej",
+    "urmatoareaStatie": "Câmpia Turzii",
+    "oraEstimataSosire": "14:00"
+  },
+  {
+    "id": "3",
+    "numar": "R 2001",
+    "status": "La stație",
+    "progres": 0,
+    "intarziere": 0,
+    "ultimaActualizare": "2024-01-15T08:30:00Z",
+    "statieCurenta": "București Nord",
+    "urmatoareaStatie": "București Băneasa",
+    "oraEstimataSosire": "08:30"
+  },
+  {
+    "id": "4",
+    "numar": "R 2002",
+    "status": "În mișcare",
+    "progres": 60,
+    "intarziere": 5,
+    "ultimaActualizare": "2024-01-15T11:30:00Z",
+    "statieCurenta": "Craiova",
+    "urmatoareaStatie": "Pitești",
+    "oraEstimataSosire": "17:20"
+  },
+  {
+    "id": "5",
+    "numar": "IC 3001",
+    "status": "În mișcare",
+    "progres": 80,
+    "intarziere": 0,
+    "ultimaActualizare": "2024-01-15T12:15:00Z",
+    "statieCurenta": "Fetești",
+    "urmatoareaStatie": "Constanța",
+    "oraEstimataSosire": "13:30"
+  },
+  {
+    "id": "6",
+    "numar": "IC 3002",
+    "status": "La stație",
+    "progres": 0,
+    "intarziere": 0,
+    "ultimaActualizare": "2024-01-15T14:00:00Z",
+    "statieCurenta": "Constanța",
+    "urmatoareaStatie": "Fetești",
+    "oraEstimataSosire": "14:00"
+  },
+  {
+    "id": "7",
+    "numar": "R 4001",
+    "status": "În mișcare",
+    "progres": 40,
+    "intarziere": 10,
+    "ultimaActualizare": "2024-01-15T12:30:00Z",
+    "statieCurenta": "Ploiești",
+    "urmatoareaStatie": "Sinaia",
+    "oraEstimataSosire": "14:10"
+  },
+  {
+    "id": "8",
+    "numar": "R 4002",
+    "status": "Programat",
+    "progres": 0,
+    "intarziere": 0,
+    "ultimaActualizare": "2024-01-15T15:30:00Z",
+    "statieCurenta": "Brașov",
+    "urmatoareaStatie": "Sinaia",
+    "oraEstimataSosire": "15:30"
+  }
+] 

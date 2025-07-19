@@ -1,0 +1,29 @@
+[
+  {
+    "trenId": "4",
+    "nume": "wdawwa",
+    "prenume": "wda",
+    "email": "wa@gmai.l.com",
+    "telefon": "wadaw",
+    "dataCalatorie": "2025-07-23",
+    "numarLocuri": 1,
+    "tipBilet": "adult",
+    "observatii": "dwada",
+    "trenInfo": {
+      "id": "4",
+      "numar": "R 2002",
+      "tip": "Rapid",
+      "plecare": "Timișoara Nord",
+      "destinatie": "București Nord",
+      "oraPlecare": "09:00",
+      "oraSosire": "17:15",
+      "durata": "8h 15m",
+      "pret": 65,
+      "locuriDisponibile": 130,
+      "operator": "CFR Călători"
+    },
+    "pretTotal": 65,
+    "id": "1752940525576",
+    "dataCreare": "2025-07-19T15:55:25.576Z"
+  }
+]

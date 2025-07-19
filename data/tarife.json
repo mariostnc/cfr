@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "tipTren": "InterRegio",
+    "pretBase": 85.50,
+    "reduceri": [
+      {
+        "tip": "Elev/Student",
+        "procent": 50,
+        "pret": 42.75,
+        "conditii": "Cu carnet de elev/student valid"
+      },
+      {
+        "tip": "Pensionar",
+        "procent": 25,
+        "pret": 64.13,
+        "conditii": "Cu carnet de pensionar valid"
+      },
+      {
+        "tip": "Copil (5-14 ani)",
+        "procent": 50,
+        "pret": 42.75,
+        "conditii": "Copii între 5-14 ani"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "tipTren": "Rapid",
+    "pretBase": 65.00,
+    "reduceri": [
+      {
+        "tip": "Elev/Student",
+        "procent": 50,
+        "pret": 32.50,
+        "conditii": "Cu carnet de elev/student valid"
+      },
+      {
+        "tip": "Pensionar",
+        "procent": 25,
+        "pret": 48.75,
+        "conditii": "Cu carnet de pensionar valid"
+      },
+      {
+        "tip": "Copil (5-14 ani)",
+        "procent": 50,
+        "pret": 32.50,
+        "conditii": "Copii între 5-14 ani"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "tipTren": "InterCity",
+    "pretBase": 45.00,
+    "reduceri": [
+      {
+        "tip": "Elev/Student",
+        "procent": 50,
+        "pret": 22.50,
+        "conditii": "Cu carnet de elev/student valid"
+      },
+      {
+        "tip": "Pensionar",
+        "procent": 25,
+        "pret": 33.75,
+        "conditii": "Cu carnet de pensionar valid"
+      },
+      {
+        "tip": "Copil (5-14 ani)",
+        "procent": 50,
+        "pret": 22.50,
+        "conditii": "Copii între 5-14 ani"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "tipTren": "Personal",
+    "pretBase": 25.00,
+    "reduceri": [
+      {
+        "tip": "Elev/Student",
+        "procent": 50,
+        "pret": 12.50,
+        "conditii": "Cu carnet de elev/student valid"
+      },
+      {
+        "tip": "Pensionar",
+        "procent": 25,
+        "pret": 18.75,
+        "conditii": "Cu carnet de pensionar valid"
+      },
+      {
+        "tip": "Copil (5-14 ani)",
+        "procent": 50,
+        "pret": 12.50,
+        "conditii": "Copii între 5-14 ani"
+      }
+    ]
+  }
+] 
