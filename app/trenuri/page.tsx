@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
 interface Tren {
@@ -28,27 +28,7 @@ export default function TrenuriPage() {
   const [data, setData] = useState('');
   const [tipTren, setTipTren] = useState('');
 
-  useEffect(() => {
-    fetchTrenuri();
-  }, []);
-
-  useEffect(() => {
-    filterTrenuri();
-  }, [trenuri, plecare, destinatie, data, tipTren]);
-
-  const fetchTrenuri = async () => {
-    try {
-      const response = await fetch('/api/trenuri');
-      const data = await response.json();
-      setTrenuri(data);
-    } catch (error) {
-      console.error('Error fetching trenuri:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterTrenuri = () => {
+  const filterTrenuri = useCallback(() => {
     let filtered = [...trenuri];
 
     if (plecare) {
@@ -68,7 +48,27 @@ export default function TrenuriPage() {
     }
 
     setFilteredTrenuri(filtered);
+  }, [trenuri, plecare, destinatie, tipTren]);
+
+  const fetchTrenuri = async () => {
+    try {
+      const response = await fetch('/api/trenuri');
+      const data = await response.json();
+      setTrenuri(data);
+    } catch (error) {
+      console.error('Error fetching trenuri:', error);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchTrenuri();
+  }, []);
+
+  useEffect(() => {
+    filterTrenuri();
+  }, [filterTrenuri]);
 
   const statii = ['București Nord', 'Cluj Napoca', 'Timișoara Nord', 'Constanța', 'Brașov', 'Sibiu', 'Craiova'];
   const tipuriTren = ['InterRegio', 'Rapid', 'InterCity', 'Personal'];

@@ -256,7 +256,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-bold mb-2">Cum verific starea trenului?</h3>
                   <p className="text-gray-400 text-sm">
-                    Poți verifica starea trenului în timp real pe pagina "Stare Trenuri".
+                    Poți verifica starea trenului în timp real pe pagina &ldquo;Stare Trenuri&rdquo;.
                   </p>
                 </div>
                 
