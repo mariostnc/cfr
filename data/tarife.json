@@ -1,102 +1,114 @@
 [
   {
     "id": "1",
-    "tipTren": "InterRegio",
-    "pretBase": 85.50,
-    "reduceri": [
-      {
-        "tip": "Elev/Student",
-        "procent": 50,
-        "pret": 42.75,
-        "conditii": "Cu carnet de elev/student valid"
-      },
-      {
-        "tip": "Pensionar",
-        "procent": 25,
-        "pret": 64.13,
-        "conditii": "Cu carnet de pensionar valid"
-      },
-      {
-        "tip": "Copil (5-14 ani)",
-        "procent": 50,
-        "pret": 42.75,
-        "conditii": "Copii între 5-14 ani"
-      }
-    ]
+    "tip": "Bilet Adult Standard",
+    "descriere": "Bilet standard pentru adulți pe toate rutele",
+    "pret": 85.50,
+    "reducere": 0,
+    "conditii": [
+      "Buletin de identitate valid",
+      "Rezervare cu 24h înainte",
+      "Plată la bord sau online"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "adult"
   },
   {
     "id": "2",
-    "tipTren": "Rapid",
-    "pretBase": 65.00,
-    "reduceri": [
-      {
-        "tip": "Elev/Student",
-        "procent": 50,
-        "pret": 32.50,
-        "conditii": "Cu carnet de elev/student valid"
-      },
-      {
-        "tip": "Pensionar",
-        "procent": 25,
-        "pret": 48.75,
-        "conditii": "Cu carnet de pensionar valid"
-      },
-      {
-        "tip": "Copil (5-14 ani)",
-        "procent": 50,
-        "pret": 32.50,
-        "conditii": "Copii între 5-14 ani"
-      }
-    ]
+    "tip": "Bilet Elev/Student",
+    "descriere": "Bilet cu reducere pentru elevi și studenți",
+    "pret": 42.75,
+    "reducere": 50,
+    "conditii": [
+      "Carnet de elev/student valid",
+      "Document de identitate",
+      "Rezervare cu 24h înainte"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "elev"
   },
   {
     "id": "3",
-    "tipTren": "InterCity",
-    "pretBase": 45.00,
-    "reduceri": [
-      {
-        "tip": "Elev/Student",
-        "procent": 50,
-        "pret": 22.50,
-        "conditii": "Cu carnet de elev/student valid"
-      },
-      {
-        "tip": "Pensionar",
-        "procent": 25,
-        "pret": 33.75,
-        "conditii": "Cu carnet de pensionar valid"
-      },
-      {
-        "tip": "Copil (5-14 ani)",
-        "procent": 50,
-        "pret": 22.50,
-        "conditii": "Copii între 5-14 ani"
-      }
-    ]
+    "tip": "Bilet Pensionar",
+    "descriere": "Bilet cu reducere pentru pensionari",
+    "pret": 64.13,
+    "reducere": 25,
+    "conditii": [
+      "Carnet de pensionar valid",
+      "Document de identitate",
+      "Rezervare cu 24h înainte"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "pensionar"
   },
   {
     "id": "4",
-    "tipTren": "Personal",
-    "pretBase": 25.00,
-    "reduceri": [
-      {
-        "tip": "Elev/Student",
-        "procent": 50,
-        "pret": 12.50,
-        "conditii": "Cu carnet de elev/student valid"
-      },
-      {
-        "tip": "Pensionar",
-        "procent": 25,
-        "pret": 18.75,
-        "conditii": "Cu carnet de pensionar valid"
-      },
-      {
-        "tip": "Copil (5-14 ani)",
-        "procent": 50,
-        "pret": 12.50,
-        "conditii": "Copii între 5-14 ani"
-      }
-    ]
+    "tip": "Bilet Copil",
+    "descriere": "Bilet cu reducere pentru copii între 5-14 ani",
+    "pret": 42.75,
+    "reducere": 50,
+    "conditii": [
+      "Copii între 5-14 ani",
+      "Document de identitate",
+      "Însoțit de adult"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "copil"
+  },
+  {
+    "id": "5",
+    "tip": "Bilet InterRegio Premium",
+    "descriere": "Bilet premium pentru trenuri InterRegio",
+    "pret": 120.00,
+    "reducere": 0,
+    "conditii": [
+      "Loc rezervat garantat",
+      "WiFi gratuit",
+      "Servicii premium"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "adult"
+  },
+  {
+    "id": "6",
+    "tip": "Bilet InterCity Business",
+    "descriere": "Bilet business pentru trenuri InterCity",
+    "pret": 150.00,
+    "reducere": 0,
+    "conditii": [
+      "Loc în compartiment business",
+      "WiFi gratuit",
+      "Cafea și snacks incluși"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "adult"
+  },
+  {
+    "id": "7",
+    "tip": "Bilet Grup (10+ persoane)",
+    "descriere": "Bilet cu reducere pentru grupuri mari",
+    "pret": 68.40,
+    "reducere": 20,
+    "conditii": [
+      "Minimum 10 persoane",
+      "Rezervare cu 48h înainte",
+      "Plată în avans"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "special"
+  },
+  {
+    "id": "8",
+    "tip": "Bilet Persoană cu Dizabilități",
+    "descriere": "Bilet gratuit pentru persoane cu dizabilități",
+    "pret": 0.00,
+    "reducere": 100,
+    "conditii": [
+      "Certificat medical valid",
+      "Document de identitate",
+      "Rezervare cu 24h înainte"
+    ],
+    "valabilitate": "24 ore de la plecare",
+    "categorie": "special"
   }
 ] 
